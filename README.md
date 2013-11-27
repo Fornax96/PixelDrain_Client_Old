@@ -17,4 +17,4 @@ You may not:
  - Distribute it
  - Sublicense it
 
-So please don't
+Copyright 2013 Wim Brand
