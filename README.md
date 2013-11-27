@@ -7,6 +7,7 @@ You can download the probably latest version from https://github.com/Fornax96/Pi
 Terms of use
 ========
 This piece of software is licensed under No License (http://choosealicense.com/licenses/no-license/)
+
 You may:
  - Use it privately
  - Use it comercially
