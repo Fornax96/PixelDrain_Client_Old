@@ -6,4 +6,14 @@ You can download the probably latest version from https://github.com/Fornax96/Pi
 
 Terms of use
 ========
-Please don't distribute this without giving me credit
+This piece of software is licensed under No License (http://choosealicense.com/licenses/no-license/)
+You may:
+ - Use it privately
+ - Use it comercially
+
+You may not:
+ - Modificate it
+ - Distribute it
+ - Sublicense it
+
+So please don't
