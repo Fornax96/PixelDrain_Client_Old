@@ -10,7 +10,7 @@ This piece of software is licensed under No License (http://choosealicense.com/l
 
 You may:
  - Use it privately
- - Use it comercially
+ - Use it commercially
 
 You may not:
  - Modificate it
