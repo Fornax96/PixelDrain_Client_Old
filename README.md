@@ -23,4 +23,4 @@ Copyright 2013 Wim Brand
 
 
 
-[bugs in the JVM]: https://github.com/Fornax96/PixelDrain/issues?labels=JVM+bug&state=open
+[1]: https://github.com/Fornax96/PixelDrain/issues?labels=JVM+bug&state=open
