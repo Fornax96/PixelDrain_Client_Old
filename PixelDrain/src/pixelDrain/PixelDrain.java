@@ -1,5 +1,7 @@
 package pixelDrain;
 
+import java.io.File;
+
 import javax.swing.UIManager;
 
 import org.jnativehook.GlobalScreen;
@@ -7,7 +9,12 @@ import org.jnativehook.NativeHookException;
 
 public class PixelDrain {
 	public static void main(String[] args) throws Exception{
-		//GUI.notify("", 0);
+		
+		File uploadDir = new File("uploads");
+		// if the directory does not exist, create it
+		if (!uploadDir.exists()) {
+			uploadDir.mkdir();
+		}
 		
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		//UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");

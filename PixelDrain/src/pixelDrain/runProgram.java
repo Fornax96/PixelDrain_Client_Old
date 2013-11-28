@@ -24,7 +24,7 @@ public class runProgram{
 		clipBoard.setContents(stringSelection, null);
 		stringSelection = null;
 		
-		GUI.notify("Your screenshot has been copied to your clipboard,<br>Press 'CTRL + V' to paste", 10000);
+		GUI.notify("Your screenshot has been copied to your clipboard,<br>Press 'CTRL + V' to paste", 6000);
 	}
 	
 	public static void fullScreen() throws IOException{

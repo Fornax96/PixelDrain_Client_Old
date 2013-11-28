@@ -6,11 +6,7 @@ import java.awt.dnd.DropTarget;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -202,8 +198,9 @@ public class GUI{
 				popup.setSize(300, 80);
 				popup.setUndecorated(true);
 				popup.setResizable(false);
-				//popup.setBackground(new Color(0.0F, 0.0F, 0.0F, 1.0F));
-				popup.setOpacity(0.7F);
+				//I removed opacity because it coused too many problems
+				//popup.setBackground(new Color(0.2F, 0.2F, 0.2F));
+				popup.getContentPane().setBackground(new Color(0.2F, 0.2F, 0.2F));
 				popup.setTitle("Notification");
 				popup.setLocation(width - 350, 50);
 				popup.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -211,13 +208,6 @@ public class GUI{
 				popup.setAlwaysOnTop(true);
 				popup.setVisible(false);
 				popup.setShape(new RoundRectangle2D.Double(0, 0, 300, 80, 20, 20));
-				
-				//I could not get this to work without a contentpane
-				try {
-					popup.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("res/notification.png")))));
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
 				
 				JLabel label = new JLabel("<html><font size='5' color='#FFFFFF'>" + text + "</font></html>", JLabel.CENTER);
 				
