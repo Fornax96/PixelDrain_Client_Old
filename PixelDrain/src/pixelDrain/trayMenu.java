@@ -22,10 +22,10 @@ public class trayMenu{
 		Image trayImage = null;
 		TrayIcon trayIcon = null;
 		if(PixelDrain.system.contains("Windows")){
-			trayImage = ImageIO.read(new File("res/trayn16.png"));
+			trayImage = ImageIO.read(new File("res/tray16.png"));
 			trayIcon = new TrayIcon(trayImage, "PixelDrain", null);
 		}else{
-			trayImage = ImageIO.read(new File("res/trayn32.png"));
+			trayImage = ImageIO.read(new File("res/tray32.png"));
 			trayIcon = new TrayIcon(trayImage, "PixelDrain", null);
 			trayIcon.setImageAutoSize(true);
 		}
