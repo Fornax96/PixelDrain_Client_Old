@@ -8,6 +8,7 @@ import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
 public class PixelDrain {
+	public static String system = System.getProperty("os.name");
 	public static void main(String[] args) throws Exception{
 		
 		File uploadDir = new File("uploads");

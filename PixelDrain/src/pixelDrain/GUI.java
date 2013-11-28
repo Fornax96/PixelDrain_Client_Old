@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,6 +17,7 @@ import javax.swing.TransferHandler;
 public class GUI{
 	
 	public static JFrame frame = new JFrame();
+	public static ImageIcon icon = new ImageIcon("res/tray32.png");
 	
 	@SuppressWarnings("serial")
 	public static void optionFrame(){
@@ -26,6 +28,7 @@ public class GUI{
 	    frame.setLocationRelativeTo(null);
 	    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	    frame.setLayout(null);
+	    frame.setIconImage(icon.getImage());
 	    
 	    //Instructions
 	    String instructions = "<html>Instructions:<br><br>"
@@ -159,33 +162,6 @@ public class GUI{
 	}
 
 	public static void notify(final String text, final int time){
-		/*if(time == 0){
-			try {
-				UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			Toolkit tk = Toolkit.getDefaultToolkit();  
-			int width = ((int) tk.getScreenSize().getWidth());
-			
-			JFrame.setDefaultLookAndFeelDecorated(true);
-			
-			popup.setSize(300, 80);
-			popup.setUndecorated(true);
-			popup.setResizable(false);
-			popup.setOpacity(0.9F);
-			popup.setBackground(new Color(0.2F, 0.2F, 0.2F, 0.5F));
-			popup.setTitle("Notification");
-			popup.setLocation(width - 350, 50);
-			popup.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-			popup.setLayout(null);
-			popup.setAlwaysOnTop(true);
-			popup.setVisible(false);
-			
-			return;
-		}*/
-		
 		Thread notifyThread = new Thread(){
 			public void run(){
 				JFrame popup = new JFrame();
@@ -198,7 +174,7 @@ public class GUI{
 				popup.setSize(300, 80);
 				popup.setUndecorated(true);
 				popup.setResizable(false);
-				//I removed opacity because it coused too many problems
+				//I removed opacity because it caused too many problems
 				//popup.setBackground(new Color(0.2F, 0.2F, 0.2F));
 				popup.getContentPane().setBackground(new Color(0.2F, 0.2F, 0.2F));
 				popup.setTitle("Notification");
@@ -207,6 +183,7 @@ public class GUI{
 				popup.setLayout(null);
 				popup.setAlwaysOnTop(true);
 				popup.setVisible(false);
+				popup.setIconImage(icon.getImage());
 				popup.setShape(new RoundRectangle2D.Double(0, 0, 300, 80, 20, 20));
 				
 				JLabel label = new JLabel("<html><font size='5' color='#FFFFFF'>" + text + "</font></html>", JLabel.CENTER);

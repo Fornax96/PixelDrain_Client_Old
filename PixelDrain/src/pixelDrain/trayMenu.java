@@ -19,13 +19,20 @@ public class trayMenu{
 			System.out.println("SystemTray is not supported");
 			return;
 		}
-		
-		Image trayImage = ImageIO.read(new File("res/tray.png"));
-		TrayIcon trayIcon = new TrayIcon(trayImage, "PixelDrain", null);
+		Image trayImage = null;
+		TrayIcon trayIcon = null;
+		if(PixelDrain.system.contains("Windows")){
+			trayImage = ImageIO.read(new File("res/tray16.png"));
+			trayIcon = new TrayIcon(trayImage, "PixelDrain", null);
+		}else{
+			trayImage = ImageIO.read(new File("res/tray32.png"));
+			trayIcon = new TrayIcon(trayImage, "PixelDrain", null);
+			trayIcon.setImageAutoSize(true);
+		}
 		
 		final SystemTray tray = SystemTray.getSystemTray();
 		
-		trayIcon.setImageAutoSize(true);
+		//
 		
 		try {
 			tray.add(trayIcon);
