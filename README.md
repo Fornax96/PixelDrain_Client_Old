@@ -2,7 +2,7 @@ PixelDrain
 ========
 
 Application for taking screenshots and other files and uploading them to a web server for sharing.
-You can download the probably latest version from [GitHub][2].
+You can download the probably latest version from GitHub: [DOWNLOAD][2].
 
 This software was developed on Linux Mint using Eclipse, but due to some [bugs in the JVM][1] it works better on Windows
 
