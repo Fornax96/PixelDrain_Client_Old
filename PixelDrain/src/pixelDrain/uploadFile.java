@@ -22,7 +22,7 @@ public class uploadFile {
 		HttpClient httpclient = new DefaultHttpClient();
 	    httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
 
-	    HttpPost httppost = new HttpPost("http://wimfris.site40.net/capture/upload.php");
+	    HttpPost httppost = new HttpPost("http://pixeldrain.site40.net/upload.php");
 
 	    MultipartEntity mpEntity = new MultipartEntity();
 	    ContentBody cbFile = new FileBody(file, mime);
@@ -43,6 +43,8 @@ public class uploadFile {
 	    
 	    if (responseString.contains("SUCCESS")) {
 	    	return responseString.replace("SUCCESS: ", "");
+	    }else{
+	    	GUI.notify(responseString, 10000);
 	    }
 
 	    return "Error: something went wrong :(";
