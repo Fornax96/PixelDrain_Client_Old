@@ -16,6 +16,9 @@ import javax.swing.TransferHandler;
 
 public class GUI{
 	
+	//Global user settings
+	public static boolean showHintWhileCropping = true;
+	
 	public static JFrame frame = new JFrame();
 	public static ImageIcon icon = new ImageIcon("res/tray32.png");
 	
@@ -34,8 +37,7 @@ public class GUI{
 	    String instructions = "<html>Instructions:<br><br>"
 	    		+ "To make a screenshot of your whole screen, press: 'CTRL + ALT + 1'<br><br>"
 	    		+ "To make a screenshot of a cropped area of your screen, press: 'CTRL + ALT + 2'<br><br>"
-	    		+ "To select an area for cropping, click and hold your left mouse button on the top-left corner of the area, and drag your mouse to the bottom-right corner of the area.<br>"
-	    		+ "everything between those two points will be uploaded and put on your clipboard.</html>";
+	    		+ "To select an area for cropping, drag your mouse from one corner to another.</html>";
 	    
 	    //Initializing the objects
 	    final JPanel menuPanel = new JPanel();

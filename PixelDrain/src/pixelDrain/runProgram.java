@@ -69,19 +69,20 @@ public class runProgram{
 		cropper.setLocationRelativeTo(null);
 		cropper.setLayout(null);
 		
-		
 		cropper.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("uploads/capture.png")))));
 		
-		JLabel titleLabel = new JLabel("<html><font color='yellow'>SELECT AN AREA FOR CROPPING<br>Right click to cancel</font></html>");
-		titleLabel.setFont(new Font("Dialog", Font.BOLD, 20));
-	    titleLabel.setBounds(20, 20, xSize, 50);
-	    JLabel titleLabelShadow = new JLabel("<html><font color='black'>SELECT AN AREA FOR CROPPING<br>Right click to cancel</font></html>");
-	    titleLabelShadow.setFont(new Font("Dialog", Font.BOLD, 20));
-	    titleLabelShadow.setBounds(22, 22, xSize, 50);
-	    
-	    //Adding the components
-	    cropper.add(titleLabel);
-	    cropper.add(titleLabelShadow);
+		if(GUI.showHintWhileCropping){
+			JLabel titleLabel = new JLabel("<html><font color='yellow'>SELECT AN AREA FOR CROPPING<br>Right click to cancel</font></html>");
+			titleLabel.setFont(new Font("Dialog", Font.BOLD, 20));
+		    titleLabel.setBounds(20, 20, xSize, 50);
+		    JLabel titleLabelShadow = new JLabel("<html><font color='black'>SELECT AN AREA FOR CROPPING<br>Right click to cancel</font></html>");
+		    titleLabelShadow.setFont(new Font("Dialog", Font.BOLD, 20));
+		    titleLabelShadow.setBounds(22, 22, xSize, 50);
+		    
+		    //Adding the components
+		    cropper.add(titleLabel);
+		    cropper.add(titleLabelShadow);
+		}
 	    
 	    //Trying to add an transparent layer, but not succeeding
 	   /* cropper.add(new JPanel(){
@@ -139,6 +140,17 @@ public class runProgram{
 		cropper.setVisible(false);
 		cropper = null;
 		
+		//TODO Attempt at adding a selection area
+		/*boolean finished = false;
+		JPanel selection = new JPanel();
+		selection.setOpaque(true);
+		selection.setBounds(0, 0, 0, 0);
+		cropper.add(selection);
+		
+		while(!canceled && !finished){
+			
+		}*/
+		
 		//Check if the user actually dragged
 		if(mouseXstart == mouseXstop && mouseYstart == mouseYstop){
 			GUI.notify("Crop canceled", 5000);
@@ -152,7 +164,7 @@ public class runProgram{
 		}
 		
 		//Start cropping the screenshot!
-		int x = mouseXstart, y = mouseYstart, w = Math.abs(mouseXstop - mouseXstart), h = Math.abs(mouseYstop - mouseYstart);
+		int x = Math.min(mouseXstart, mouseXstop), y = Math.min(mouseYstart, mouseYstop), w = Math.abs(mouseXstop - mouseXstart), h = Math.abs(mouseYstop - mouseYstart);
 		
 		Image unCropped = ImageIO.read(new File("uploads/capture.png"));
 		BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
