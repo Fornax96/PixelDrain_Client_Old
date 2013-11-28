@@ -2,7 +2,26 @@ PixelDrain
 ========
 
 Application for taking screenshots and other files and uploading them to a web server for sharing.
+You can download the probably latest version from [GitHub][2].
 
-I'll upload it tomorrow, It's late over here.
+This software was developed on Linux Mint using Eclipse, but due to some [bugs in the JVM][1] it works better on Windows
 
-You better prepare for awesomeness ;)
+Terms of use
+========
+This piece of software is licensed under No License (http://choosealicense.com/licenses/no-license/)
+
+You may:
+ - Use it privately
+ - Use it commercially
+
+You may not:
+ - Modificate it
+ - Distribute it
+ - Sublicense it
+
+Copyright 2013 Wim Brand
+
+
+
+[1]: https://github.com/Fornax96/PixelDrain/issues?labels=JVM+bug&state=open
+[2]: https://github.com/Fornax96/PixelDrain/blob/master/PixelDrain.zip?raw=true

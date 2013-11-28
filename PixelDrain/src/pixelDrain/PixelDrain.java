@@ -1,27 +1,17 @@
 package pixelDrain;
 
 import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
 public class PixelDrain {
 	public static void main(String[] args) throws Exception{
-		GUI.notify("", 0);
+		//GUI.notify("", 0);
 		
-		try {
-			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-				if ("GTK".equals(info.getName())) {
-					UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-				}else{
-					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-				}
-			}
-		} catch (Exception e) {
-			// If Nimbus is not available, you can set the GUI to another look and feel.
-			e.printStackTrace();
-		}
+		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		//UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+		// Sadly, UIManager.getSystemLookAndFeelClassName() will never return GTK
 		
 		
 		trayMenu tray = new trayMenu();

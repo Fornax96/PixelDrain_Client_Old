@@ -24,8 +24,7 @@ public class runProgram{
 		clipBoard.setContents(stringSelection, null);
 		stringSelection = null;
 		
-		GUI.notify("Your screenshot has been copied to your clipboard,<br>"
-				+ "Press 'CTRL + V' to paste", 8000);
+		GUI.notify("Your screenshot has been copied to your clipboard,<br>Press 'CTRL + V' to paste", 10000);
 	}
 	
 	public static void fullScreen() throws IOException{
@@ -94,7 +93,7 @@ public class runProgram{
 	    	}
 	    });*/
 		
-		//cropper.pack();
+		cropper.repaint();
 		cropper.setVisible(true);
 		cropper.setAlwaysOnTop(true);
 		cropper.requestFocus();
