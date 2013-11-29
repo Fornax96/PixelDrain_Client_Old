@@ -61,13 +61,18 @@ public class GUI{
 			dropLabel.setBounds(50, 120, 200, 200);
 			final JButton exitBtn = new JButton("Close PixelDrain");
 			exitBtn.setBounds(10, 330, 280, 30);
-		
+			
+		if (PixelDrain.java_version.startsWith("1.8")) {
+			dropLabelText = new JLabel("<html>Drag and drop upload is not supported by Java 1.8 (which you're using), and has been disabled</html>");
+			dropLabelText.setBounds(10, 100, 280, 60);
+		}else{
+			menuPanel.add(dropLabel);
+		}
 		menuPanel.setLayout(null);
 		menuPanel.add(titleLabel);
 		menuPanel.add(keysBtn);
 		menuPanel.add(helpBtn);
 		menuPanel.add(dropLabelText);
-		menuPanel.add(dropLabel);
 		menuPanel.add(exitBtn);
 		
 		final JPanel helpPanel = new JPanel();

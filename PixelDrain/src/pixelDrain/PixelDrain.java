@@ -9,8 +9,11 @@ import org.jnativehook.NativeHookException;
 
 public class PixelDrain {
 	public static String system = System.getProperty("os.name");
+	public static String java_version = System.getProperty("java.version");
+	
 	public static void main(String[] args) throws Exception{
 		System.out.println("Running on system: " + system);
+		System.out.println("Running JVM version: " + java_version);
 		
 		File uploadDir = new File("uploads");
 		// if the directory does not exist, create it
