@@ -10,6 +10,7 @@ import org.jnativehook.NativeHookException;
 public class PixelDrain {
 	public static String system = System.getProperty("os.name");
 	public static void main(String[] args) throws Exception{
+		System.out.println("Running on system: " + system);
 		
 		File uploadDir = new File("uploads");
 		// if the directory does not exist, create it

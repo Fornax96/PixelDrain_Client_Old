@@ -1,18 +1,21 @@
 package pixelDrain;
 
 import java.awt.Color;
-import java.awt.Toolkit;
-import java.awt.dnd.DropTarget;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.RoundRectangle2D;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.TransferHandler;
+
+import org.apache.commons.io.FilenameUtils;
+
+import net.iharder.dnd.FileDrop;
 
 public class GUI{
 	
@@ -22,35 +25,40 @@ public class GUI{
 	public static JFrame frame = new JFrame();
 	public static ImageIcon icon = new ImageIcon("res/tray32.png");
 	
-	@SuppressWarnings("serial")
 	public static void optionFrame(){
 		frame.setSize(300, 400);
 		frame.setResizable(false);
-	    frame.setBackground(Color.BLACK);
-	    frame.setTitle("PixelDrain");
-	    frame.setLocationRelativeTo(null);
-	    frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-	    frame.setLayout(null);
-	    frame.setIconImage(icon.getImage());
-	    
-	    //Instructions
-	    String instructions = "<html>Instructions:<br><br>"
-	    		+ "To make a screenshot of your whole screen, press: 'CTRL + ALT + 1'<br><br>"
-	    		+ "To make a screenshot of a cropped area of your screen, press: 'CTRL + ALT + 2'<br><br>"
-	    		+ "To select an area for cropping, drag your mouse from one corner to another.</html>";
-	    
-	    //Initializing the objects
-	    final JPanel menuPanel = new JPanel();
-	    menuPanel.setBounds(0, 0, 300, 400);
-	    
-		    final JLabel titleLabel = new JLabel("Menu:");
-		    titleLabel.setBounds(10, 5, 280, 20);
+		frame.setBackground(Color.BLACK);
+		frame.setTitle("PixelDrain");
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frame.setLayout(null);
+		frame.setIconImage(icon.getImage());
+		
+		//Instructions
+		String instructions = "<html>Instructions:<br><br>"
+				+ "'CTRL + ALT + 1' Takes a screenshot of your whole screen.<br><br>"
+				+ "'CTRL + ALT + 2' Lets you crop a screenshot before uploading.<br><br>"
+				+ "'CTRL + ALT + 3' Opens the options window, just like clicking the tray icon.<br><br>"
+				+ "To select an area for cropping, drag your mouse from one corner to another.</html>";
+		
+		//Initializing the objects
+		final JPanel menuPanel = new JPanel();
+		menuPanel.setBounds(0, 0, 300, 400);
+		
+			final JLabel titleLabel = new JLabel("Menu:");
+			titleLabel.setBounds(10, 5, 280, 20);
 			final JButton keysBtn = new JButton("Edit keybindings");
 			keysBtn.setBounds(10, 30, 280, 30);
 			final JButton helpBtn = new JButton("Instructions");
 			helpBtn.setBounds(10, 70, 280, 30);
-		    final JLabel dropLabel = new JLabel("");
-		    dropLabel.setBounds(10, 110, 280, 30);
+			JLabel dropLabelText = new JLabel("Drop file here for direct sharing:", JLabel.CENTER);
+			dropLabelText.setBounds(10, 100, 280, 20);
+			JLabel dropLabel = null;
+			try {
+				dropLabel = new JLabel(new ImageIcon(ImageIO.read(new File("res/dropTexture.png"))));
+			} catch (IOException e1) {e1.printStackTrace();}
+			dropLabel.setBounds(50, 120, 200, 200);
 			final JButton exitBtn = new JButton("Close PixelDrain");
 			exitBtn.setBounds(10, 330, 280, 30);
 		
@@ -58,14 +66,15 @@ public class GUI{
 		menuPanel.add(titleLabel);
 		menuPanel.add(keysBtn);
 		menuPanel.add(helpBtn);
+		menuPanel.add(dropLabelText);
 		menuPanel.add(dropLabel);
 		menuPanel.add(exitBtn);
 		
 		final JPanel helpPanel = new JPanel();
-	    helpPanel.setBounds(0, 0, 300, 400);
-	    
+		helpPanel.setBounds(0, 0, 300, 400);
+		
 			final JLabel helpLabel = new JLabel(instructions);
-		    helpLabel.setBounds(10, 5, 280, 300);
+			helpLabel.setBounds(10, 5, 280, 300);
 			final JButton helpBackBtn = new JButton("Back");
 			helpBackBtn.setBounds(10, 330, 280, 30);
 			
@@ -94,28 +103,42 @@ public class GUI{
 		keysPanel.add(keysBackBtn);
 		
 		//Setting properties
-		frame.setDropTarget(new DropTarget());
-	    
-	    //Adding the objects
+		new FileDrop(dropLabel, new FileDrop.Listener(){
+			@Override
+			public void filesDropped(File[] files) {
+				try {
+					System.out.println(files[0].toString());
+					System.out.println(FilenameUtils.getExtension(files[0].toString()));
+					String directLink = "Your screenshot has not been uploaded, try again";
+					directLink = uploadFile.upload(files[0], FilenameUtils.getExtension(files[0].toString()));
+					runProgram.copyToClipboard(directLink);
+				} catch (Exception e) {
+					notification.notify("Something went wrong while dropping", 10000);
+					e.printStackTrace();
+				}
+			}
+		});
+		//Adding the objects
 		frame.add(menuPanel);
-	    
-	    frame.repaint();
-	    
-	    exitBtn.addActionListener(new ActionListener(){
+		
+		frame.repaint();
+		
+		
+		exitBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
-	    });
-	    helpBtn.addActionListener(new ActionListener(){
+		});
+		helpBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.remove(menuPanel);
 				frame.add(helpPanel);
 				frame.repaint();
 			}
-	    });
-	    helpBackBtn.addActionListener(new ActionListener(){
+		});
+		helpBackBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.add(menuPanel);
@@ -123,7 +146,7 @@ public class GUI{
 				frame.repaint();
 			}
 		});
-	    keysBackBtn.addActionListener(new ActionListener(){
+		keysBackBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.add(menuPanel);
@@ -131,7 +154,7 @@ public class GUI{
 				frame.repaint();
 			}
 		});
-	    keysBtn.addActionListener(new ActionListener(){
+		keysBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.remove(menuPanel);
@@ -139,8 +162,8 @@ public class GUI{
 				frame.repaint();
 			}
 		});
-	    
-	    key1Btn.addActionListener(new ActionListener(){
+		
+		key1Btn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				/*keyListener.LAST_KEY = 0;
@@ -154,58 +177,6 @@ public class GUI{
 				frame.repaint();*/
 			}
 		});
-		frame.setTransferHandler(new TransferHandler(){
-			public boolean importData(TransferSupport ts) {
-				System.out.println("File dropped!: " + ts);
-				return false;
-
-			}
-		});
-	}
-
-	public static void notify(final String text, final int time){
-		Thread notifyThread = new Thread(){
-			public void run(){
-				JFrame popup = new JFrame();
-				
-				Toolkit tk = Toolkit.getDefaultToolkit();  
-				int width = ((int) tk.getScreenSize().getWidth());
-				
-				//JFrame.setDefaultLookAndFeelDecorated(true);
-				
-				popup.setSize(300, 80);
-				popup.setUndecorated(true);
-				popup.setResizable(false);
-				//I removed opacity because it caused too many problems
-				//popup.setBackground(new Color(0.2F, 0.2F, 0.2F));
-				popup.getContentPane().setBackground(new Color(0.2F, 0.2F, 0.2F));
-				popup.setTitle("Notification");
-				popup.setLocation(width - 350, 50);
-				popup.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-				popup.setLayout(null);
-				popup.setAlwaysOnTop(true);
-				popup.setVisible(false);
-				popup.setIconImage(icon.getImage());
-				popup.setShape(new RoundRectangle2D.Double(0, 0, 300, 80, 20, 20));
-				
-				JLabel label = new JLabel("<html><font size='5' color='#FFFFFF'>" + text + "</font></html>", JLabel.CENTER);
-				
-				label.setBounds(5, 5, 290, 70);
-				popup.add(label);
-				
-				popup.setVisible(true);
-				popup.repaint();
-				
-				try {
-					Thread.sleep(time);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				
-				popup.setVisible(false);
-			}
-		};
-		notifyThread.start();
 		
 	}
 }

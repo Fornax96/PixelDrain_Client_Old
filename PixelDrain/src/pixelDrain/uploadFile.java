@@ -16,16 +16,16 @@ import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
 
 public class uploadFile {
-	public static String upload(File file, String mime) throws IOException{
+	public static String upload(File file, String ext) throws IOException{
 		
 		
 		HttpClient httpclient = new DefaultHttpClient();
 	    httpclient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
 
-	    HttpPost httppost = new HttpPost("http://pixeldrain.site40.net/upload.php");
+	    HttpPost httppost = new HttpPost("http://pixeldrain.site40.net/upload.php?ext=" + ext);
 
 	    MultipartEntity mpEntity = new MultipartEntity();
-	    ContentBody cbFile = new FileBody(file, mime);
+	    ContentBody cbFile = new FileBody(file, "file/file");
 	    mpEntity.addPart("capture", cbFile);
 
 	    httppost.setEntity(mpEntity);
@@ -44,7 +44,7 @@ public class uploadFile {
 	    if (responseString.contains("SUCCESS")) {
 	    	return responseString.replace("SUCCESS: ", "");
 	    }else{
-	    	GUI.notify(responseString, 10000);
+	    	notification.notify(responseString, 10000);
 	    }
 
 	    return "Error: something went wrong :(";

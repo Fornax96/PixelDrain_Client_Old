@@ -16,6 +16,7 @@ public class keyListener implements NativeKeyListener{
 	public static boolean KEY2_TYPED = false;
 	public static boolean MODE1_TYPED = false;
 	public static boolean MODE2_TYPED = false;
+	public static boolean MODE3_TYPED = false;
 	
 	@Override
 	public void nativeKeyTyped(NativeKeyEvent e) {
@@ -38,6 +39,9 @@ public class keyListener implements NativeKeyListener{
 		if(e.getKeyCode() == 50){
 			MODE2_TYPED = true;
         }
+		if(e.getKeyCode() == 51){
+			MODE3_TYPED = true;
+        }
 		combinationChecker();
 	}
 
@@ -57,6 +61,9 @@ public class keyListener implements NativeKeyListener{
 		if(e.getKeyCode() == 50){
 			MODE2_TYPED = false;
         }
+		if(e.getKeyCode() == 51){
+			MODE3_TYPED = true;
+        }
 	}
 	
 	public void combinationChecker(){
@@ -73,6 +80,13 @@ public class keyListener implements NativeKeyListener{
 				runProgram.cropped();
 			} catch (Exception e) {
 				System.out.println("Could not take screenshot: something went wrong :(");
+				e.printStackTrace();
+			}
+		}
+		if(keyListener.KEY1_TYPED && keyListener.KEY2_TYPED && keyListener.MODE3_TYPED){
+			try {
+				GUI.frame.setVisible(true);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

@@ -24,7 +24,7 @@ public class runProgram{
 		clipBoard.setContents(stringSelection, null);
 		stringSelection = null;
 		
-		GUI.notify("Your screenshot has been copied to your clipboard,<br>Press 'CTRL + V' to paste", 6000);
+		notification.notify("Your screenshot has been copied to your clipboard,<br>Press 'CTRL + V' to paste", 6000);
 	}
 	
 	public static void fullScreen() throws IOException{
@@ -35,7 +35,7 @@ public class runProgram{
 		}
 		
 		String directLink = "Your screenshot has not been uploaded, try again";
-		directLink = uploadFile.upload(new File("uploads/capture.png"), "image/png");
+		directLink = uploadFile.upload(new File("uploads/capture.png"), "png");
 		copyToClipboard(directLink);
 	}
 	
@@ -153,12 +153,12 @@ public class runProgram{
 		
 		//Check if the user actually dragged
 		if(mouseXstart == mouseXstop && mouseYstart == mouseYstop){
-			GUI.notify("Crop canceled", 5000);
+			notification.notify("Crop canceled", 5000);
 			canceled = false;
 			return;
 		}
 		if(canceled == true){
-			GUI.notify("Crop canceled", 5000);
+			notification.notify("Crop canceled", 5000);
 			canceled = false;
 			return;
 		}
@@ -174,7 +174,7 @@ public class runProgram{
 		System.out.println("x: " + x + " y: " + y + " w: " + w + " h: " + h);
 		
 		String directLink = "Your screenshot has not been uploaded, try again";
-		directLink = uploadFile.upload(new File("uploads/capture_cropped.png"), "image/png");
+		directLink = uploadFile.upload(new File("uploads/capture_cropped.png"), "png");
 		copyToClipboard(directLink);
 	}
 }
