@@ -18,13 +18,13 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 public class runProgram{
-	public static void copyToClipboard(String link){
+	public static void copyToClipboard(String link, String message){
 		StringSelection stringSelection = new StringSelection(link);
 		Clipboard clipBoard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		clipBoard.setContents(stringSelection, null);
 		stringSelection = null;
 		
-		notification.notify("Your screenshot has been copied to your clipboard,<br>Press 'CTRL + V' to paste", 6000);
+		notification.notify(message, 6000);
 	}
 	
 	public static void fullScreen() throws IOException{
@@ -36,7 +36,7 @@ public class runProgram{
 		
 		String directLink = "Your screenshot has not been uploaded, try again";
 		directLink = uploadFile.upload(new File("uploads/capture.png"), "png");
-		copyToClipboard(directLink);
+		copyToClipboard(directLink, "Your screenshot has been copied to your clipboard,<br>Press 'CTRL + V' to paste");
 	}
 	
 	static boolean pressed = false;
@@ -175,6 +175,6 @@ public class runProgram{
 		
 		String directLink = "Your screenshot has not been uploaded, try again";
 		directLink = uploadFile.upload(new File("uploads/capture_cropped.png"), "png");
-		copyToClipboard(directLink);
+		copyToClipboard(directLink, "Your screenshot has been copied to your clipboard,<br>Press 'CTRL + V' to paste");
 	}
 }

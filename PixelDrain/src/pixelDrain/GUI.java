@@ -13,9 +13,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import org.apache.commons.io.FilenameUtils;
-
 import net.iharder.dnd.FileDrop;
+
+import org.apache.commons.io.FilenameUtils;
 
 public class GUI{
 	
@@ -108,7 +108,7 @@ public class GUI{
 		keysPanel.add(keysBackBtn);
 		
 		//Setting properties
-		new FileDrop(dropLabel, new FileDrop.Listener(){
+		new FileDrop(dropLabel, false,  new FileDrop.Listener(){
 			@Override
 			public void filesDropped(File[] files) {
 				try {
@@ -116,12 +116,15 @@ public class GUI{
 					System.out.println(FilenameUtils.getExtension(files[0].toString()));
 					String directLink = "Your screenshot has not been uploaded, try again";
 					directLink = uploadFile.upload(files[0], FilenameUtils.getExtension(files[0].toString()));
-					runProgram.copyToClipboard(directLink);
+					runProgram.copyToClipboard(directLink, "Your file has been copied to your clipboard,<br>Press 'CTRL + V' to paste");
+					
 				} catch (Exception e) {
-					notification.notify("Something went wrong while dropping", 10000);
+					notification.notify("Whatever you tried to do does not work, please don't try it again", 10000);
 					e.printStackTrace();
 				}
 			}
+			
+			
 		});
 		//Adding the objects
 		frame.add(menuPanel);

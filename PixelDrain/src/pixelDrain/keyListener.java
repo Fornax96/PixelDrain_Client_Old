@@ -62,7 +62,7 @@ public class keyListener implements NativeKeyListener{
 			MODE2_TYPED = false;
         }
 		if(e.getKeyCode() == 51){
-			MODE3_TYPED = true;
+			MODE3_TYPED = false;
         }
 	}
 	
