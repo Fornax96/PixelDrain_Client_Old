@@ -25,8 +25,7 @@ public class PixelDrain {
 		//UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
 		// Sadly, UIManager.getSystemLookAndFeelClassName() will never return GTK
 		
-		
-		trayMenu tray = new trayMenu();
+		TrayMenu tray = new TrayMenu();
 		tray.create();
 		
 		GUI.optionFrame();
@@ -40,7 +39,20 @@ public class PixelDrain {
 	    }
 	
 	    //Create the key listener
-	    GlobalScreen.getInstance().addNativeKeyListener(new keyListener());
+	    GlobalScreen.getInstance().addNativeKeyListener(new KeyEventListener());
+	    
+	    /*GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	    GraphicsDevice[] gs = ge.getScreenDevices();
+	    for(GraphicsDevice curGs : gs)
+	    {
+	          GraphicsConfiguration[] gc = curGs.getConfigurations();
+	          for(GraphicsConfiguration curGc : gc)
+	          {
+	                Rectangle bounds = curGc.getBounds();
+
+	                System.out.println(bounds.getX() + "," + bounds.getY() + " " + bounds.getWidth() + "x" + bounds.getHeight());
+	          }
+	     }*/
 	    
 	    while(true){
 	    	Thread.sleep(60000);

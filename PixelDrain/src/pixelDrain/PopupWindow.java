@@ -6,11 +6,19 @@ import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
 
-public class notification {
+public class PopupWindow {
 	public static void notify(final String text, final int time){
 		Thread notifyThread = new Thread(){
 			public void run(){
+				try {
+					//I don't know why I have to do this
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				
 				JFrame popup = new JFrame();
 				
 				Toolkit tk = Toolkit.getDefaultToolkit();  
@@ -21,9 +29,10 @@ public class notification {
 				popup.setSize(300, 80);
 				popup.setUndecorated(true);
 				popup.setResizable(false);
+				popup.setFocusableWindowState(false);
 				//I removed opacity because it caused too many problems
 				//popup.setBackground(new Color(0.2F, 0.2F, 0.2F));
-				popup.getContentPane().setBackground(new Color(0.2F, 0.2F, 0.2F));
+				popup.getContentPane().setBackground(new Color(0.3F, 0.3F, 0.3F));
 				popup.setTitle("Notification");
 				popup.setLocation(width - 350, 50);
 				popup.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);

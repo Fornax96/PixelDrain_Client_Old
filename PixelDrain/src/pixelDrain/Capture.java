@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class capture {
+public class Capture {
 	public static void captureScreen() throws AWTException, IOException{
 		
 		Robot robot = new Robot();

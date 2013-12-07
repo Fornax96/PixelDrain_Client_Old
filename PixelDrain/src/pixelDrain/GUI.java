@@ -7,8 +7,10 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,11 +18,17 @@ import javax.swing.JPanel;
 import net.iharder.dnd.FileDrop;
 
 import org.apache.commons.io.FilenameUtils;
+import org.jnativehook.keyboard.NativeKeyEvent;
 
 public class GUI{
 	
-	//Global user settings
-	public static boolean showHintWhileCropping = true;
+	static JButton key1Btn = new JButton();
+	static JButton key2Btn = new JButton();
+	static JButton key3Btn = new JButton();
+	static JButton key4Btn = new JButton();
+	static JButton key5Btn = new JButton();
+	static JButton key6Btn = new JButton();
+	static JCheckBox chkBrowser = new JCheckBox();
 	
 	public static JFrame frame = new JFrame();
 	public static ImageIcon icon = new ImageIcon("res/tray32.png");
@@ -39,7 +47,8 @@ public class GUI{
 		String instructions = "<html>Instructions:<br><br>"
 				+ "'CTRL + ALT + 1' Takes a screenshot of your whole screen.<br><br>"
 				+ "'CTRL + ALT + 2' Lets you crop a screenshot before uploading.<br><br>"
-				+ "'CTRL + ALT + 3' Opens the options window, just like clicking the tray icon.<br><br>"
+				+ "'CTRL + ALT + 3' Takes a photo with your webcam (If you have one).<br><br>"
+				+ "'CTRL + ALT + 4' Opens the options window, just like clicking the tray icon.<br><br>"
 				+ "To select an area for cropping, drag your mouse from one corner to another.</html>";
 		
 		//Initializing the objects
@@ -48,8 +57,8 @@ public class GUI{
 		
 			final JLabel titleLabel = new JLabel("Menu:");
 			titleLabel.setBounds(10, 5, 280, 20);
-			final JButton keysBtn = new JButton("Edit keybindings");
-			keysBtn.setBounds(10, 30, 280, 30);
+			final JButton settingsBtn = new JButton("Edit settings");
+			settingsBtn.setBounds(10, 30, 280, 30);
 			final JButton helpBtn = new JButton("Instructions");
 			helpBtn.setBounds(10, 70, 280, 30);
 			JLabel dropLabelText = new JLabel("Drop file here for direct sharing:", JLabel.CENTER);
@@ -70,7 +79,7 @@ public class GUI{
 		}
 		menuPanel.setLayout(null);
 		menuPanel.add(titleLabel);
-		menuPanel.add(keysBtn);
+		menuPanel.add(settingsBtn);
 		menuPanel.add(helpBtn);
 		menuPanel.add(dropLabelText);
 		menuPanel.add(exitBtn);
@@ -87,39 +96,49 @@ public class GUI{
 		helpPanel.add(helpLabel);
 		helpPanel.add(helpBackBtn);
 		
-		final JPanel keysPanel = new JPanel();
-		keysPanel.setBounds(0, 0, 300, 400);
-		
-			final JButton key1Btn = new JButton("Key 1: " + keyListener.KEY1);
+		final JPanel settingsPanel = new JPanel();
+		settingsPanel.setBounds(0, 0, 300, 400);
+
+			settingsPanel.setLayout(null);
+			key1Btn = new JButton("Key 1: " + NativeKeyEvent.getKeyText(KeyEventListener.KEY1));
 			key1Btn.setBounds(10, 10, 135, 30);
-			final JButton key2Btn = new JButton("Key 2: " + keyListener.KEY2);
+			key2Btn = new JButton("Key 2: " + NativeKeyEvent.getKeyText(KeyEventListener.KEY2));
 			key2Btn.setBounds(155, 10, 135, 30);
-			final JButton key3Btn = new JButton("Fullscreen: " + keyListener.KEY3_FULLSCREEN);
+			key3Btn = new JButton("Fullscreen: " + NativeKeyEvent.getKeyText(KeyEventListener.KEY3_FULLSCREEN));
 			key3Btn.setBounds(10, 50, 280, 30);
-			final JButton key4Btn = new JButton("Cropped: " + keyListener.KEY4_CROPPED);
+			key4Btn = new JButton("Cropped: " + NativeKeyEvent.getKeyText(KeyEventListener.KEY4_CROPPED));
 			key4Btn.setBounds(10, 80, 280, 30);
-			final JButton keysBackBtn = new JButton("Back");
-			keysBackBtn.setBounds(10, 330, 280, 30);
+			key5Btn = new JButton("Webcam: " + NativeKeyEvent.getKeyText(KeyEventListener.KEY5_WEBCAM));
+			key5Btn.setBounds(10, 110, 280, 30);
+			key6Btn = new JButton("Interface: " + NativeKeyEvent.getKeyText(KeyEventListener.KEY6_INTERFACE));
+			key6Btn.setBounds(10, 140, 280, 30);
+			chkBrowser = new JCheckBox("Open browser after upload", false);
+			chkBrowser.setBounds(10, 180, 280, 30);
+			
+			final JButton settingsBackBtn = new JButton("Back");
+			settingsBackBtn.setBounds(10, 330, 280, 30);
 		
-		keysPanel.add(key1Btn);
-		keysPanel.add(key2Btn);
-		keysPanel.add(key3Btn);
-		keysPanel.add(key4Btn);
-		keysPanel.add(keysBackBtn);
+		settingsPanel.add(key1Btn);
+		settingsPanel.add(key2Btn);
+		settingsPanel.add(key3Btn);
+		settingsPanel.add(key4Btn);
+		settingsPanel.add(key5Btn);
+		settingsPanel.add(key6Btn);
+		settingsPanel.add(chkBrowser);
+		settingsPanel.add(settingsBackBtn);
 		
 		//Setting properties
-		new FileDrop(dropLabel, false,  new FileDrop.Listener(){
+		new FileDrop(dropLabel, BorderFactory.createEmptyBorder(),  new FileDrop.Listener(){
 			@Override
 			public void filesDropped(File[] files) {
 				try {
 					System.out.println(files[0].toString());
 					System.out.println(FilenameUtils.getExtension(files[0].toString()));
-					String directLink = "Your screenshot has not been uploaded, try again";
-					directLink = uploadFile.upload(files[0], FilenameUtils.getExtension(files[0].toString()));
-					runProgram.copyToClipboard(directLink, "Your file has been copied to your clipboard,<br>Press 'CTRL + V' to paste");
+					String directLink = UploadFile.upload(files[0], FilenameUtils.getExtension(files[0].toString()));
+					RunProgram.copyToClipboard(directLink);
 					
 				} catch (Exception e) {
-					notification.notify("Whatever you tried to do does not work, please don't try it again", 10000);
+					PopupWindow.notify("Whatever you tried to do does not work, please don't try it again", 10000);
 					e.printStackTrace();
 				}
 			}
@@ -154,19 +173,19 @@ public class GUI{
 				frame.repaint();
 			}
 		});
-		keysBackBtn.addActionListener(new ActionListener(){
+		settingsBackBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.add(menuPanel);
-				frame.remove(keysPanel);
+				frame.remove(settingsPanel);
 				frame.repaint();
 			}
 		});
-		keysBtn.addActionListener(new ActionListener(){
+		settingsBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				frame.remove(menuPanel);
-				frame.add(keysPanel);
+				frame.add(settingsPanel);
 				frame.repaint();
 			}
 		});
@@ -174,17 +193,80 @@ public class GUI{
 		key1Btn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/*keyListener.LAST_KEY = 0;
-				GUI.notify("Press a key", 3000);
-				
-				while(keyListener.LAST_KEY == 0){
-					try{Thread.sleep(100);}catch(InterruptedException ex){}
-				}
-				keyListener.KEY1 = keyListener.LAST_KEY;
-				//key1Btn = new JButton("Key 1: " + keyListener.KEY1);
-				frame.repaint();*/
+				editKeys(key1Btn, 1, "Key 1: ");
+			}
+		});
+		key2Btn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editKeys(key2Btn, 2, "Key 2: ");
+			}
+		});
+		key3Btn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editKeys(key3Btn, 3, "Fullscreen: ");
+			}
+		});
+		key4Btn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editKeys(key4Btn, 4, "Cropped: ");
+			}
+		});
+		key5Btn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editKeys(key5Btn, 5, "Webcam: ");
+			}
+		});
+		key6Btn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				editKeys(key5Btn, 6, "Interface: ");
 			}
 		});
 		
+		chkBrowser.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("chkBrowser: " + chkBrowser.isSelected());
+				Config.openBrowser = chkBrowser.isSelected();
+			}
+		});
+		
+	}
+	
+	public static void editKeys(JButton keyBtn, int keyid, String btnText){
+		int keySetting = 0;
+		
+		KeyEventListener.LAST_KEY = 0;
+		keyBtn.setText("PRESS A KEY");
+		frame.repaint();
+		
+		while(KeyEventListener.LAST_KEY == 0){
+			try{Thread.sleep(100);}catch(InterruptedException ex){}
+		}
+		
+		keySetting = KeyEventListener.LAST_KEY;
+		keyBtn.setText(btnText + NativeKeyEvent.getKeyText(KeyEventListener.LAST_KEY));
+		System.out.println(keySetting);
+
+		if(keyid == 1){KeyEventListener.KEY1 = keySetting;}
+		else if(keyid == 2){KeyEventListener.KEY2 = keySetting;}
+		else if(keyid == 3){KeyEventListener.KEY3_FULLSCREEN = keySetting;}
+		else if(keyid == 4){KeyEventListener.KEY4_CROPPED = keySetting;}
+		else if(keyid == 5){KeyEventListener.KEY5_WEBCAM = keySetting;}
+		else if(keyid == 6){KeyEventListener.KEY6_INTERFACE = keySetting;}
+		
+		frame.repaint();
+	}
+	
+	public static String keys[];
+	
+	public static String localizeKeys(int key){
+		
+		
+		return keys[key];
 	}
 }

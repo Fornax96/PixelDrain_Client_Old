@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class trayMenu{
+public class TrayMenu{
 	public void create() throws IOException{
 		
 		//Check the SystemTray support

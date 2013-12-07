@@ -17,9 +17,9 @@ import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.util.EntityUtils;
 
-public class uploadFile {
+public class UploadFile {
 	public static String upload(File file, String ext) throws IOException{
-		
+		PopupWindow.notify("Uploading...", 3000);
 		
 		HttpClient httpClient = new DefaultHttpClient();
 	    httpClient.getParams().setParameter(CoreProtocolPNames.PROTOCOL_VERSION, HttpVersion.HTTP_1_1);
@@ -42,14 +42,17 @@ public class uploadFile {
 	    
 	    String responseString = EntityUtils.toString(resEntity);
 	    
+	    System.out.println("Done, response:");
 	    System.out.println(responseString);
 	    
 	    if (responseString.contains("SUCCESS")) {
+	    	PopupWindow.notify("Your file has been copied to your clipboard,<br>Press 'CTRL + V' to paste", 8000);
 	    	return responseString.replace("SUCCESS: ", "");
+	    }else if(responseString.contains("ERROR")){
+	    	PopupWindow.notify(responseString, 10000);
+	    	return "";
 	    }else{
-	    	notification.notify(responseString, 10000);
+	    	return responseString;
 	    }
-
-	    return "Error: something went wrong :(";
 	}
 }
