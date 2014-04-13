@@ -8,16 +8,7 @@ This software was developed on Linux using Eclipse, but due to some [bugs in the
 
 Terms of use
 ========
-This piece of software is licensed under No License (http://choosealicense.com/licenses/no-license/)
-
-You may:
- - Use it privately
- - Use it commercially
-
-You may not:
- - Modificate it
- - Distribute it
- - Sublicense it
+Please download the source and make it into something useful, but do give me credits.
 
 Copyright 2013 Wim Brand
 
