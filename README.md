@@ -9,6 +9,7 @@ This software was developed on Linux using Eclipse, but due to some [bugs in the
 Terms of use
 ========
 Please download the source and make it into something useful, but do give me credits.
+Also, please commit any useful changes to this project.
 
 Copyright 2013 Wim Brand
 
