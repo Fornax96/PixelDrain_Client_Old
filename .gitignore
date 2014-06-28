@@ -1,5 +1,4 @@
-/nbproject/
-/uploads/
-/build/
+/nbproject/*
+/uploads/*
+/build/*
 /build.xml
-/dist/
