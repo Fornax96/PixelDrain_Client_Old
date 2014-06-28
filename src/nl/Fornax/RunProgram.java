@@ -202,6 +202,7 @@ public class RunProgram{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		webcam.close();
 		
 		String directLink = UploadFile.upload(new File("uploads/photo.png"), "png");
 		copyToClipboard(directLink);
