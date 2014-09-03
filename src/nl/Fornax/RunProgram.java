@@ -3,6 +3,8 @@ package nl.Fornax;
 import com.github.sarxos.webcam.Webcam;
 import java.awt.Desktop;
 import java.awt.Font;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
@@ -55,6 +57,8 @@ public class RunProgram{
 	static int mouseYstart = 0;
 	static int mouseXstop = 0;
 	static int mouseYstop = 0;
+        
+    static GraphicsDevice gDevice = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
 	
 	public static void cropped() throws IOException, InterruptedException{
 		try {
@@ -67,16 +71,15 @@ public class RunProgram{
 		
 		cropper.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		cropper.setUndecorated(true);
-		//cropper.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//The setSize way works better on Linux
 		Toolkit tk = Toolkit.getDefaultToolkit();  
 		final int xSize = ((int) tk.getScreenSize().getWidth());  
 		final int ySize = ((int) tk.getScreenSize().getHeight());  
-		cropper.setSize(xSize,ySize);
+		//cropper.setSize(xSize,ySize);
 		cropper.setFocusable(true);
 		cropper.setLocationRelativeTo(null);
 		cropper.setLayout(null);
-		
+		gDevice.setFullScreenWindow(cropper);
+                
 		cropper.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("uploads/capture.png")))));
 		
 		if(Config.showHintWhileCropping){
@@ -162,12 +165,12 @@ public class RunProgram{
 		
 		//Check if the user actually dragged
 		if(mouseXstart == mouseXstop && mouseYstart == mouseYstop){
-			PopupWindow.notify("Crop canceled", 5000);
+			PopupWindow.notify("Screenshot canceled", 5000);
 			canceled = false;
 			return;
 		}
 		if(canceled == true){
-			PopupWindow.notify("Crop canceled", 5000);
+			PopupWindow.notify("Screenshot canceled", 5000);
 			canceled = false;
 			return;
 		}

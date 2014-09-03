@@ -12,7 +12,6 @@ public class PopupWindow {
 		Thread notifyThread = new Thread(){
 			public void run(){
 				try {
-					//I don't know why I have to do this
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -29,8 +28,6 @@ public class PopupWindow {
 				popup.setUndecorated(true);
 				popup.setResizable(false);
 				popup.setFocusableWindowState(false);
-				//I removed opacity because it caused too many problems
-				//popup.setBackground(new Color(0.2F, 0.2F, 0.2F));
 				popup.getContentPane().setBackground(new Color(0.3F, 0.3F, 0.3F));
 				popup.setTitle("Notification");
 				popup.setLocation(width - 350, 50);
@@ -46,8 +43,8 @@ public class PopupWindow {
 				label.setBounds(5, 5, 290, 70);
 				popup.add(label);
 				
-				popup.setVisible(true);
 				popup.repaint();
+				popup.setVisible(true);
 				
 				try {
 					Thread.sleep(time);

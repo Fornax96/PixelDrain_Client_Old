@@ -1,6 +1,9 @@
 package nl.Fornax;
 
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -19,22 +22,22 @@ import org.jnativehook.keyboard.NativeKeyEvent;
 
 public class GUI{
 	
-	static JButton key1Btn = new JButton();
-	static JButton key2Btn = new JButton();
-	static JButton key3Btn = new JButton();
-	static JButton key4Btn = new JButton();
-	static JButton key5Btn = new JButton();
-	static JButton key6Btn = new JButton();
-	static JCheckBox chkBrowser = new JCheckBox();
+	private static JButton key1Btn = new JButton();
+	private static JButton key2Btn = new JButton();
+	private static JButton key3Btn = new JButton();
+	private static JButton key4Btn = new JButton();
+	private static JButton key5Btn = new JButton();
+	private static JButton key6Btn = new JButton();
+	private static JCheckBox chkBrowser = new JCheckBox();
 	
-	public static JFrame frame = new JFrame();
-	public static ImageIcon icon = new ImageIcon("res/tray32.png");
+	static JFrame frame = new JFrame();
+	static ImageIcon icon = new ImageIcon("res/dropTexture.png");
 	
 	public static void optionFrame(){
 		frame.setSize(300, 400);
 		frame.setResizable(false);
-		frame.setBackground(Color.BLACK);
-		frame.setTitle("PixelDrain");
+		//frame.setBackground(Color.BLACK);
+		frame.setTitle("Pixeldrain");
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.setLayout(null);
@@ -52,32 +55,27 @@ public class GUI{
 		final JPanel menuPanel = new JPanel();
 		menuPanel.setBounds(0, 0, 300, 400);
 		
-			final JLabel titleLabel = new JLabel("Menu:");
-			titleLabel.setBounds(10, 5, 280, 20);
-			final JButton settingsBtn = new JButton("Edit settings");
-			settingsBtn.setBounds(10, 30, 280, 30);
-			final JButton helpBtn = new JButton("Instructions");
-			helpBtn.setBounds(10, 70, 280, 30);
-			JLabel dropLabelText = new JLabel("Drop file here for direct sharing:", JLabel.CENTER);
-			dropLabelText.setBounds(10, 100, 280, 20);
-			JLabel dropLabel = null;
-			try {
-				dropLabel = new JLabel(new ImageIcon(ImageIO.read(new File("res/dropTexture.png"))));
-			} catch (IOException e1) {e1.printStackTrace();}
-			dropLabel.setBounds(50, 120, 200, 200);
-			final JButton exitBtn = new JButton("Close PixelDrain");
-			exitBtn.setBounds(10, 330, 280, 30);
-			
-		if (PixelDrain.java_version.startsWith("1.8")) {
-			dropLabelText = new JLabel("<html>Drag and drop upload is not supported by Java 1.8 (which you're using), and has been disabled</html>");
-			dropLabelText.setBounds(10, 100, 280, 60);
-		}else{
-			menuPanel.add(dropLabel);
-		}
+		final JLabel titleLabel = new JLabel("Menu:");
+		titleLabel.setBounds(10, 5, 280, 20);
+		final JButton settingsBtn = new JButton("Edit settings");
+		settingsBtn.setBounds(10, 30, 280, 30);
+		final JButton helpBtn = new JButton("Instructions");
+		helpBtn.setBounds(10, 70, 280, 30);
+		JLabel dropLabelText = new JLabel("Drop file here for direct sharing:", JLabel.CENTER);
+		dropLabelText.setBounds(10, 100, 280, 20);
+		JLabel dropLabel = null;
+		try {
+			dropLabel = new JLabel(new ImageIcon(ImageIO.read(new File("res/dropTexture.png"))));
+		} catch (IOException e1) {e1.printStackTrace();}
+		dropLabel.setBounds(50, 120, 200, 200);
+		final JButton exitBtn = new JButton("Exit Pixeldrain");
+		exitBtn.setBounds(10, 330, 280, 30);
+		
 		menuPanel.setLayout(null);
 		menuPanel.add(titleLabel);
 		menuPanel.add(settingsBtn);
 		menuPanel.add(helpBtn);
+		menuPanel.add(dropLabel);
 		menuPanel.add(dropLabelText);
 		menuPanel.add(exitBtn);
 		

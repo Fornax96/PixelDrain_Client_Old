@@ -8,9 +8,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import javax.imageio.ImageIO;
+import tray.SystemTrayAdapter;
+import tray.SystemTrayProvider;
+import tray.TrayIconAdapter;
 
 public class TrayMenu{
+	
 	public void create() throws IOException{
 		
 		//Check the SystemTray support
@@ -18,6 +23,7 @@ public class TrayMenu{
 			System.out.println("SystemTray is not supported");
 			return;
 		}
+		
 		Image trayImage = null;
 		TrayIcon trayIcon = null;
 		if(PixelDrain.system.contains("Windows")){

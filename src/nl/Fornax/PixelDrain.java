@@ -19,9 +19,14 @@ public class PixelDrain {
 			uploadDir.mkdir();
 		}
 		
-		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		//UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-		// Sadly, UIManager.getSystemLookAndFeelClassName() will never return GTK
+		for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+			if ("com.sun.java.swing.plaf.gtk.GTKLookAndFeel".equals(info.getClassName())) {   
+				javax.swing.UIManager.setLookAndFeel(info.getClassName());
+				break;
+			}else{
+				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			}
+		}
 		
 		TrayMenu tray = new TrayMenu();
 		tray.create();
