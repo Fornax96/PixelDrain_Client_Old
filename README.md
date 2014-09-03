@@ -6,10 +6,6 @@ You can download the latest version from GitHub: [DOWNLOAD][2]. To install extra
 
 This software was developed on Linux but due to some [bugs in the JVM][1] it works better on Windows
 
-Terms of use
-========
-Please download the source and make it into something useful, but do give me credits.
-Also, please commit any useful changes to this project.
 
 Copyright 2013 - 2014 Wim Brand
 
