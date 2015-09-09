@@ -1,6 +1,9 @@
 PixelDrain
 ========
 
+### This application was my very first Java project ever, it has very buggy and inefficient code.
+### A newer version of the client already exists but is not open sourced yet
+
 Application for taking screenshots and other files and uploading them to a web server for sharing.
 You can download the latest version from GitHub: [DOWNLOAD][2]. To install extract the zip archive to some directory and run PixelDrain.jar
 
